@@ -1,10 +1,8 @@
---To disable this model, set the using_domain_names variable within your dbt_project.yml file to False.
-{{ config(enabled=var('using_domain_names', True)) }}
 
 with base as (
 
     select * 
-    from {{ ref('stg_zendesk__domain_name_tmp') }}
+    from {{ ref('organization_tmp') }}
 
 ),
 
@@ -19,8 +17,8 @@ fields as (
         */
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__domain_name_tmp')),
-                staging_columns=get_domain_name_columns()
+                source_columns=adapter.get_columns_in_relation(ref('organization_tmp')),
+                staging_columns=get_organization_columns()
             )
         }}
         
@@ -30,9 +28,13 @@ fields as (
 final as (
     
     select 
-        organization_id,
-        domain_name,
-        index
+        id as organization_id,
+        created_at,
+        updated_at,
+        details,
+        name,
+        external_id
+
     from fields
 )
 

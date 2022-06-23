@@ -319,3 +319,7 @@ sources:
             description: Name of the time zone. 
           - name: standard_offset 
             description: Standard offset of the timezone (non-daylight savings hours). In `+/-hh:mm` format.
+        
+      - name: call_metric
+        description: Summary of metrics for each call
+        freshness: null

@@ -2,7 +2,7 @@
 with base as (
 
     select * 
-    from {{ ref('stg_zendesk__group_tmp') }}
+    from {{ ref('group_tmp') }}
 
 ),
 
@@ -17,7 +17,7 @@ fields as (
         */
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__group_tmp')),
+                source_columns=adapter.get_columns_in_relation(ref('group_tmp')),
                 staging_columns=get_group_columns()
             )
         }}

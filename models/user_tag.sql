@@ -1,8 +1,10 @@
+--To disable this model, set the using_user_tags variable within your dbt_project.yml file to False.
+{{ config(enabled=var('using_user_tags', True)) }}
 
 with base as (
 
     select * 
-    from {{ ref('stg_zendesk__organization_tmp') }}
+    from {{ ref('user_tag_tmp') }}
 
 ),
 
@@ -17,8 +19,8 @@ fields as (
         */
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__organization_tmp')),
-                staging_columns=get_organization_columns()
+                source_columns=adapter.get_columns_in_relation(ref('user_tag_tmp')),
+                staging_columns=get_user_tag_columns()
             )
         }}
         
@@ -28,13 +30,13 @@ fields as (
 final as (
     
     select 
-        id as organization_id,
-        created_at,
-        updated_at,
-        details,
-        name,
-        external_id
-
+        user_id,
+        {% if target.type == 'redshift' %}
+        'tag'
+        {% else %}
+        tag
+        {% endif %}
+        as tags
     from fields
 )
 

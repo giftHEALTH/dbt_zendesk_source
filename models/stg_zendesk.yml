@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_zendesk__ticket
+  - name: ticket
     description: >
       Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support. Tickets can 
       originate from a number of channels, including email, Help Center, chat, phone call, Twitter, Facebook, or the API.
@@ -60,7 +60,7 @@ models:
       - name: source_to_name
         description: The name of the source the ticket was created from  
 
-  - name: stg_zendesk__brand
+  - name: brand
     description: >
       Brands are your customer-facing identities. They might represent multiple products or services, or they 
       might literally be multiple brands owned and represented by your company.
@@ -79,7 +79,7 @@ models:
       - name: active
         description: If the brand is set as active
 
-  - name: stg_zendesk__domain_name
+  - name: domain_name
     description: Domain names associated with an organization. An organization may have multiple domain names.
     columns:
       - name: organization_id
@@ -91,7 +91,7 @@ models:
       - name: index
         description: Index number of the domain name associated with the organization
 
-  - name: stg_zendesk__group
+  - name: group
     description: >
       When support requests arrive in Zendesk Support, they can be assigned to a Group. Groups serve as the core
       element of ticket workflow; support agents are organized into Groups and tickets can be assigned to a Group
@@ -106,7 +106,7 @@ models:
       - name: name
         description: The name of the group
 
-  - name: stg_zendesk__organization_tag
+  - name: organization_tag
     description: The tags associated with an organization. An organization may have multiple tags.
     columns:
       - name: organization_id
@@ -114,7 +114,7 @@ models:
       - name: tag
         description: Tag associated with the organization
 
-  - name: stg_zendesk__organization
+  - name: organization
     description: >
       Just as agents can be segmented into groups in Zendesk Support, your customers (end-users) can be segmented into 
       organizations. You can manually assign customers to an organization or automatically assign them to an organization 
@@ -131,7 +131,7 @@ models:
       - name: details
         description: Any details obout the organization, such as the address
 
-  - name: stg_zendesk__ticket_comment
+  - name: ticket_comment
     description: Ticket comments represent the conversation between requesters, collaborators, and agents. Comments can be public or private.
     columns:
       - name: ticket_comment_id
@@ -156,7 +156,7 @@ models:
       - name: is_voice_comment
         description: Boolean field indicating if the comment is a voice comment
 
-  - name: stg_zendesk__user_tag
+  - name: user_tag
     description: Table containing all tags associated with a user. Only present if your account has user tagging enabled.
     columns:
       - name: user_id
@@ -164,7 +164,7 @@ models:
       - name: tag
         description: Tag associated with the user
 
-  - name: stg_zendesk__user
+  - name: user
     description: Zendesk has three types of users, end-users (your customers), agents, and administrators.
     columns:
       - name: user_id
@@ -189,7 +189,7 @@ models:
       - name: ticket_restriction
         description: Specifies which tickets the user has access to. Possible values are organization, groups, assigned, requested and null
 
-  - name: stg_zendesk__schedule
+  - name: schedule
     description: The support schedules created with different business hours and holidays. 
     columns: 
       - name: schedule_id
@@ -205,7 +205,7 @@ models:
       - name: time_zone
         description: Timezone in which the schedule operates. 
       
-  - name: stg_zendesk__ticket_schedule
+  - name: ticket_schedule
     description: The schedules applied to tickets through a trigger.
     columns: 
       - name: ticket_id
@@ -215,7 +215,7 @@ models:
       - name: schedule_id
         description: The ID of the schedule applied to the ticket
   
-  - name: stg_zendesk__ticket_form_history
+  - name: ticket_form_history
     description: Ticket forms allow an admin to define a subset of ticket fields for display to both agents and end users.
     columns:
       - name: ticket_form_id
@@ -233,7 +233,7 @@ models:
       - name: name
         description: The name of the form
 
-  - name: stg_zendesk__ticket_tag
+  - name: ticket_tag
     description: >
       Tags are words, or combinations of words, you can use to add more context to tickets. The table lists all
       tags currently associated with a ticket.
@@ -244,7 +244,7 @@ models:
         description: The tag, or word(s), associated with the ticket
 
   
-  - name: stg_zendesk__ticket_field_history
+  - name: ticket_field_history
     description: All fields and field values associated with tickets.
     columns: 
       - name: ticket_id
@@ -260,7 +260,7 @@ models:
       - name: user_id
         description: The id of the user who made the update
 
-  - name: stg_zendesk__daylight_time
+  - name: daylight_time
     description: >
       Appropriate offsets (from UTC) for timezones that engage or have engaged with Daylight Savings at some point since 1970.
     tests:
@@ -282,7 +282,7 @@ models:
       - name: daylight_offset_minutes
         description: Number of **minutes** added during Daylight Savings Time. 
 
-  - name: stg_zendesk__time_zone
+  - name: time_zone
     description: Offsets (from UTC) for each timezone. 
     columns:
       - name: time_zone
@@ -294,3 +294,7 @@ models:
         description: Standard offset of the timezone (non-daylight savings hours). In `+/-hh:mm` format.
       - name: standard_offset_minutes
         description: Standard offset of the timezone (non-daylight savings hours) in minutes.
+
+  - name: call_metric
+    description: Summary of metrics for each call
+    freshness: null        

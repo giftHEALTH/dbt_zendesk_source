@@ -32,3 +32,4 @@ vars:
     user: "{{ source('zendesk', 'user') }}"
     time_zone: "{{ source('zendesk', 'time_zone') }}"
     daylight_time: "{{ source('zendesk', 'daylight_time') }}"
+    call_metric: "{{ source('zendesk', 'call_metric') }}"

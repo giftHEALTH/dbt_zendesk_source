@@ -1,10 +1,10 @@
---To disable this model, set the using_schedules variable within your dbt_project.yml file to False.
-{{ config(enabled=var('using_schedules', True)) }}
+--To disable this model, set the using_organization_tags variable within your dbt_project.yml file to False.
+{{ config(enabled=var('using_organization_tags', True)) }}
 
 with base as (
 
     select * 
-    from {{ ref('stg_zendesk__ticket_schedule_tmp') }}
+    from {{ ref('organization_tag_tmp') }}
 
 ),
 
@@ -19,8 +19,8 @@ fields as (
         */
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__ticket_schedule_tmp')),
-                staging_columns=get_ticket_schedule_columns()
+                source_columns=adapter.get_columns_in_relation(ref('organization_tag_tmp')),
+                staging_columns=get_organization_tag_columns()
             )
         }}
         
@@ -30,13 +30,13 @@ fields as (
 final as (
     
     select 
-        ticket_id,
-        {% if target.type == 'redshift' -%}
-            cast(created_at as timestamp without time zone) as created_at,
-        {% else -%}
-            created_at,
+        organization_id,
+        {% if target.type == 'redshift' %}
+        'tag'
+        {% else %}
+        tag
         {% endif %}
-        cast(schedule_id as {{ dbt_utils.type_string() }}) as schedule_id --need to convert from numeric to string for downstream models to work properly
+        as tags
     from fields
 )
 

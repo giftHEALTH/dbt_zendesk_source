@@ -2,7 +2,7 @@
 with base as (
 
     select * 
-    from {{ ref('stg_zendesk__user_tmp') }}
+    from {{ ref('user_tmp') }}
 
 ),
 
@@ -17,7 +17,7 @@ fields as (
         */
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__user_tmp')),
+                source_columns=adapter.get_columns_in_relation(ref('user_tmp')),
                 staging_columns=get_user_columns()
             )
         }}
@@ -48,7 +48,9 @@ final as (
         time_zone,
         locale,
         active as is_active,
-        suspended as is_suspended
+        suspended as is_suspended,
+        phone
+
     from fields
 )
 
