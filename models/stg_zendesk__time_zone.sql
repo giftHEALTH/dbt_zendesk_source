@@ -4,7 +4,7 @@
 with base as (
 
     select * 
-    from {{ ref('time_zone_tmp') }}
+    from {{ ref('stg_zendesk__time_zone_tmp') }}
 
 ),
 
@@ -13,7 +13,7 @@ fields as (
     select
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('time_zone_tmp')),
+                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__time_zone_tmp')),
                 staging_columns=get_time_zone_columns()
             )
         }}

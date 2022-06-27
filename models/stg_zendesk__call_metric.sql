@@ -2,7 +2,7 @@
 with base as (
 
     select * 
-    from {{ ref('call_metric_tmp') }}
+    from {{ ref('stg_zendesk__call_metric_tmp') }}
 
 ),
 
@@ -17,7 +17,7 @@ fields as (
         */
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('call_metric_tmp')),
+                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__call_metric_tmp')),
                 staging_columns=get_call_metric_columns()
             )
         }}

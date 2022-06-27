@@ -1,10 +1,10 @@
---To disable this model, set the using_schedules variable within your dbt_project.yml file to False.
-{{ config(enabled=var('using_schedules', True)) }}
+--To disable this model, set the using_user_tags variable within your dbt_project.yml file to False.
+{{ config(enabled=var('using_user_tags', True)) }}
 
 with base as (
 
     select * 
-    from {{ ref('daylight_time_tmp') }}
+    from {{ ref('stg_zendesk__user_tag_tmp') }}
 
 ),
 
@@ -19,8 +19,8 @@ fields as (
         */
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('daylight_time_tmp')),
-                staging_columns=get_daylight_time_columns()
+                source_columns=adapter.get_columns_in_relation(ref('stg_zendesk__user_tag_tmp')),
+                staging_columns=get_user_tag_columns()
             )
         }}
         
@@ -30,14 +30,15 @@ fields as (
 final as (
     
     select 
-        daylight_end_utc,
-        daylight_offset,
-        daylight_start_utc,
-        time_zone,
-        year,
-        daylight_offset * 60 as daylight_offset_minutes
-        
+        user_id,
+        {% if target.type == 'redshift' %}
+        'tag'
+        {% else %}
+        tag
+        {% endif %}
+        as tags
     from fields
 )
 
-select * from final
+select * 
+from final
