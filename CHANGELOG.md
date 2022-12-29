@@ -1,4 +1,10 @@
 # dbt_zendesk_source v0.6.1
+
+dbt_utils v1.0.0 Compatibility
+## 🚨 Breaking Changes 🚨
+- Updates to require fivetran_utils [">=0.4.0", "<0.5.0"], which relies on dbt_utils v1.0.0.  
+
+
 ## Features
 - The `stg_zendesk__ticket` table now allows for your custom passthrough columns to be added via the `zendesk__ticket_passthrough_columns` variable. You can add your passthrough columns as a list within the variable in your project configuration. ([#27](https://github.com/fivetran/dbt_zendesk_source/pull/27))
 # dbt_zendesk_source v0.6.0
