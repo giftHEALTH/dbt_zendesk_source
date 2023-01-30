@@ -323,3 +323,61 @@ sources:
       - name: call_metric
         description: Summary of metrics for each call
         freshness: null
+        columns: 
+          - name: id
+            description: Primary key for this table
+          - name: ticket_id
+            description: Foreign key to ticket table
+          - name: agent_id
+            description: Goreign key to user table
+
+      - name: call_leg
+        description: > 
+          Call legs count a specific segment event in the call, such as missed calls by agents, accepted and 
+          declined calls by an agent, and calls that went to voicemail.  Both the agent and the end-user will
+          have a call leg record.  
+        columns: 
+          - name: id
+            description: Primary key for this table
+          - name: agent_id
+            description: Foreign key to user table
+          - name: call_id
+            description: Foreign key to call_metric table
+          - name: user_id
+            description: Foreign key to user table
+          - name: available_via
+            description: Call leg available via (browser, NULL)
+          - name: completion_status
+            description: Status of call leg (completed, agent_missed)
+          - name: conference_from
+            description: Phone number conference call received from
+          - name: conference_to
+            description: Phone number conference call sent to
+          - name: conference_time
+            description: Time (seconds) spent in conference call
+          - name: consultation_from
+            description: Phone number consultation received from
+          - name: consultation_to
+            description: Phone number consultation sent to
+          - name: consultation_time
+            description: Time (seconds) spent in consultation call
+          - name: forwarded_to
+            description: TBD
+          - name: duration
+            description: Duration of call leg (seconds)
+          - name: hold_time
+            description: Time spent on hold (seconds)
+          - name: talk_time
+            description: Time spent connected (seconds)
+          - name: wrap_up_time
+            description: Time spent wrapping up call (seconds)                                  
+          - name: minutes_billed
+            description: Number of minutes billed
+          - name: call_charge
+            description: Charge (in cents) for call leg
+          - name: transferred_from
+            description: Phone number call leg was transferred from
+          - name: transferred_to
+            description: Phone number call leg was transferred to
+          - name: type
+            description: Type of call leg (agent, customer, supervisor)
