@@ -1,5 +1,8 @@
 # dbt_zendesk_source v0.6.1
 
+## Features
+- The `call_leg` table is now available in the staging layer.  
+
 dbt_utils v1.0.0 Compatibility
 ## 🚨 Breaking Changes 🚨
 - Updates to require fivetran_utils [">=0.4.0", "<0.5.0"], which relies on dbt_utils v1.0.0.  
