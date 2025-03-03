@@ -25,6 +25,7 @@ vars:
     ticket: "{{ source('zendesk', 'ticket') }}"
     ticket_form_history: "{{ source('zendesk', 'ticket_form_history') }}"
     ticket_comment: "{{ source('zendesk', 'ticket_comment') }}"
+    ticket_custom_field: "{{ source('zendesk', 'ticket_custom_field') }}"
     ticket_field_history: "{{ source('zendesk', 'ticket_field_history') }}"
     ticket_schedule: "{{ source('zendesk', 'ticket_schedule') }}"
     ticket_tag: "{{ source('zendesk', 'ticket_tag') }}"
